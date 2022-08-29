@@ -3,8 +3,12 @@
   <component name="UserContentModel">
     <attachedFolders />
     <explicitIncludes>
+      <Path>.gitignore</Path>
       <Path>wwwroot</Path>
     </explicitIncludes>
-    <explicitExcludes />
+    <explicitExcludes>
+      <Path>VanillaJsTest/obj</Path>
+      <Path>VanillaJsTest/wwwroot/dist</Path>
+    </explicitExcludes>
   </component>
 </project>
