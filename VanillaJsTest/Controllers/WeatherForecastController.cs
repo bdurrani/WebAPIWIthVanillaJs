@@ -29,4 +29,11 @@ public class WeatherForecastController : ControllerBase
             })
             .ToArray();
     }
+
+    [HttpPost]
+    public async Task<IActionResult> PostExtractionJob(IFormFile file)
+    {
+       _logger.LogInformation("Got an upload {Name}", file.FileName);
+       return Ok();
+    }
 }

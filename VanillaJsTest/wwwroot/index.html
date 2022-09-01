@@ -7,6 +7,12 @@
     <script src="./dist/build.js"></script>
 </head>
     <body>
+    <form method="post" id="upload" action="/weatherforecast" enctype="multipart/form-data">
+        <label for="file">File to upload</label>
+        <input type="file" id="file">
+
+        <button>Upload</button>
+    </form>
         <noscript>
             You need to enable JavaScript to run this app.
         </noscript>
