@@ -4,14 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Vanilla Ooonana</title>
-    <script src="./dist/build.js"></script>
 </head>
     <body>
-    <form method="post" id="upload" action="/weatherforecast" enctype="multipart/form-data">
+    <form method="post" id="upload" action="/weatherforecast" enctype="multipart/form-data" name="upload-form">
         <label for="file">File to upload</label>
         <input type="file" id="file" name="file">
         <button>Upload</button>
     </form>
+    <img src="" class="my-image"  alt="uploaded image"/>
         <noscript>
             You need to enable JavaScript to run this app.
         </noscript>
@@ -26,5 +26,6 @@
           To begin the development, run `npm start` or `yarn start`.
           To create a production bundle, use `npm run build` or `yarn build`.
         -->
+        <script src="./dist/build.js"></script>
     </body>
 </html>

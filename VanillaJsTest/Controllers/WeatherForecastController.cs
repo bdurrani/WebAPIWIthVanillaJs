@@ -34,6 +34,10 @@ public class WeatherForecastController : ControllerBase
     public async Task<IActionResult> PostExtractionJob(IFormFile file)
     {
        _logger.LogInformation("Got an upload {Name}", file.FileName);
-       return Created(new Uri("./result.html", UriKind.Relative), "hi");
+       // return Created(new Uri("./result.html", UriKind.Relative), "hi");
+       var memoryStream = new MemoryStream();
+       await file.OpenReadStream().CopyToAsync(memoryStream);
+       var data = Convert.ToBase64String(memoryStream.GetBuffer());
+       return Ok(data);
     }
 }
