@@ -18,5 +18,6 @@ module.exports ={
         filename: "build.js",
         path: path.resolve(__dirname, 'dist')
     },
-    devtool: 'eval',
+    // devtool: 'eval',
+    devtool: 'inline-source-map',
 }
