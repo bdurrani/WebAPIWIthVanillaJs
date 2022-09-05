@@ -1,7 +1,15 @@
 import * as _ from 'lodash';
 import {helloWorld} from './test';
+import { register } from './Components';
 
 (async () => {
+
+    register();
+    const root = document.getElementById('root');
+    if(!root){
+        console.log('no root element found');
+        return;
+    }
 
     // console.log(_.camelCase("hello world"));
     helloWorld();
@@ -12,12 +20,11 @@ import {helloWorld} from './test';
         return;
     }
 
+
     form.addEventListener(
         "submit",
         async (event) => {
-            const output = document.querySelector("output")
             const formData = new FormData(form);
-
             formData.append("CustomField", "This is some extra data");
 
             event.preventDefault();
@@ -30,7 +37,9 @@ import {helloWorld} from './test';
                 throw new Error(`HTTP error, status = ${response.status}`);
             }
             const blob = await response.blob();
-            const myImage = document.querySelector(".my-image") as HTMLImageElement | null;
+            // const myImage = document.querySelector(".my-image") as HTMLImageElement | null;
+            const myImage = document.createElement('img') as HTMLImageElement;
+            root.append(myImage);
             const prefix = "data:image/png;base64";
             const txt =await blob.text();
             if(myImage !==null){
