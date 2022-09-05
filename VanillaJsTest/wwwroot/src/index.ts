@@ -1,16 +1,21 @@
-import {camelCase} from "lodash";
-
+import * as _ from 'lodash';
+import {helloWorld} from './test';
 
 (async () => {
 
-    console.log(camelCase("hello world"));
-
+    // console.log(_.camelCase("hello world"));
+    helloWorld();
     const form = document.forms.namedItem("upload-form");
+
+    if(form === null){
+        console.log("no form found");
+        return;
+    }
 
     form.addEventListener(
         "submit",
         async (event) => {
-            const output = document.querySelector("output");
+            const output = document.querySelector("output")
             const formData = new FormData(form);
 
             formData.append("CustomField", "This is some extra data");
@@ -25,10 +30,12 @@ import {camelCase} from "lodash";
                 throw new Error(`HTTP error, status = ${response.status}`);
             }
             const blob = await response.blob();
-            const myImage = document.querySelector(".my-image");
+            const myImage = document.querySelector(".my-image") as HTMLImageElement | null;
             const prefix = "data:image/png;base64";
             const txt =await blob.text();
-            myImage.src = `${prefix}, ${txt}`;
+            if(myImage !==null){
+                myImage.src = `${prefix}, ${txt}`;
+            }
         },
         false
     );
