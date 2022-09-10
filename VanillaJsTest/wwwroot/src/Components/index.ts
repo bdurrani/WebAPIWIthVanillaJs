@@ -1,5 +1,6 @@
-import { registration } from './PageViewer';
+import { registration } from "./PageViewer";
+export * from "./sample";
 
-export function register(){
-   registration();
+export function register() {
+  registration();
 }
