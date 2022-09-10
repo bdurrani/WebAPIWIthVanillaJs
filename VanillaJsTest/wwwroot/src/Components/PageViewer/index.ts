@@ -11,8 +11,9 @@ export class PageViewer extends HTMLElement {
     // (can be called many times if an element is repeatedly added/removed)
     console.log("connected cb");
     if (this.shadowRoot) {
-      const txtNode = document.createTextNode("Hello");
-      this.shadowRoot.appendChild(txtNode);
+      // const txtNode = document.createTextNode("Hello");
+      // this.shadowRoot.appendChild(txtNode);
+      this.shadowRoot.innerHTML = this.html();
     }
     // this.innerHTML = this.html();
   }
@@ -23,10 +24,7 @@ export class PageViewer extends HTMLElement {
     console.log("disconnected cb");
   }
   html() {
-    return `
-            Welcome Home, logged in.
-            <ul id="projectList"></ul>
-            `;
+    return ` <div class="statement-page"></div> `;
   }
 }
 
