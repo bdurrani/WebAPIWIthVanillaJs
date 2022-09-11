@@ -1,5 +1,5 @@
-import { LitElement, html, css} from "lit";
-import { customElement, property } from "lit/decorators.js";
+import {html, LitElement, css} from "lit";
+import {customElement, property} from "lit/decorators.js";
 
 @customElement("my-element")
 export class MyElement extends LitElement {
@@ -15,22 +15,35 @@ export class MyElement extends LitElement {
 }
 
 
-
-@customElement("page-viewer-v2")
-export class PageViewerV2 extends LitElement {
-  @property()
-  version = "STARTING";
-
-  static styles = css`
-    .statement-page {
-      color: green;
-    }
-  `;
-  render() {
-    return html`
-      <div class="statement-page">
-        This is page
-      </div>
-    `;
-  }
-}
+// @customElement("page-viewer-v2")
+// export class PageViewerV2 extends LitElement {
+//   @property()
+//   version = "STARTING";
+//
+//   @property({attribute: false})
+//   imageData: string;
+//
+//   constructor() {
+//     super();
+//     this.imageData = "";
+//   }
+//
+//   static styles = css`
+//     .statement-page {
+//       color: green;
+//     }
+//   `;
+//
+//   render() {
+//     const imageTmpl = this.imageData ?
+//         html`
+//           <img src=${this.imageData}
+//                alt="Visit the MDN site">
+//         ` : ``;
+//     return html`
+//       <div class="statement-page">
+//         ${imageTmpl}
+//       </div>
+//     `;
+//   }
+// }
