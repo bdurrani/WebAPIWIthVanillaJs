@@ -1,4 +1,3 @@
-import * as _ from 'lodash';
 import {helloWorld} from './test';
 import { register } from './Components';
 
