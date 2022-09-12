@@ -11,7 +11,7 @@ async function formSubmitHandler(event: SubmitEvent){
     formData.append("CustomField", "This is some extra data");
 
     event.preventDefault();
-    const response = await fetch("/weatherforecast",
+    const response = await fetch("/files",
         {
             body: formData,
             method: "POST",
