@@ -43,7 +43,6 @@ public class ImageGenerator
             .Where(file => !string.IsNullOrWhiteSpace(file))
             .Select(file => Path.GetFileName(file))
             .ToArray();
-
     }
 
     private async Task GenerateImages(string pdfPath, string workingDirectory)

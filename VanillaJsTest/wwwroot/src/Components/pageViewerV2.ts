@@ -23,9 +23,8 @@ export class PageViewerV2 extends LitElement {
     render() {
         const imageTmpl = this.imageData ?
             html`
-          <img src=${this.imageData}
-               alt="Visit the MDN site">
-        ` : ``;
+          <img src=${this.imageData} alt="Visit the MDN site"> ` : ``;
+
         return html`
       <div class="statement-page">
         ${imageTmpl}

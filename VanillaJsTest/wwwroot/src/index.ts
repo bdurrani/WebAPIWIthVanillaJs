@@ -1,5 +1,6 @@
 import {helloWorld} from './test';
 import { register, PageViewerV2 } from './Components';
+import {StatementData} from "./types";
 
 async function formSubmitHandler(event: SubmitEvent){
     const form = event.target as HTMLFormElement;
@@ -19,6 +20,8 @@ async function formSubmitHandler(event: SubmitEvent){
     if (!response.ok) {
         throw new Error(`HTTP error, status = ${response.status}`);
     }
+    const jsondata: StatementData = await response.json();
+    console.log(jsondata);
     const blob = await response.blob();
     // const myImage = document.querySelector(".my-image") as HTMLImageElement | null;
     // const myImage = document.createElement('img') as HTMLImageElement;
@@ -30,7 +33,6 @@ async function formSubmitHandler(event: SubmitEvent){
     // if(myImage !==null){
     //     myImage.src = `${prefix}, ${txt}`;
     // }
-
 }
 
 (async () => {

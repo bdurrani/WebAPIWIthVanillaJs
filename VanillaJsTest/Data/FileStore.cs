@@ -21,11 +21,21 @@ public class FileStore : IFileStore
         }
     }
 
+    /// <summary>
+    /// Get the fully qualified path to the file saved to disk
+    /// </summary>
+    /// <param name="fileId">name of file</param>
+    /// <returns>Fully qualified path to file on disk</returns>
     public string GetFilePath(string fileId)
     {
         return Path.Combine(_storagePath, fileId);
     }
 
+    /// <summary>
+    /// Save the file to a temp location
+    /// </summary>
+    /// <param name="fileStream">stream to save to disk</param>
+    /// <returns>Name of the file saved to disk</returns>
     public async Task<string> SaveFile(Stream fileStream)
     {
         var safeFileName = Guid.NewGuid().ToString();
