@@ -37,20 +37,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpLogging();
 app.UseDefaultFiles();
-var physicalFileProvider = new PhysicalFileProvider(
-    Path.Combine(builder.Environment.ContentRootPath, "raw_uploads", "output"));
-var requestPath = "/images";
-app.UseStaticFiles();
-app.UseStaticFiles(new StaticFileOptions
-{
-    FileProvider = physicalFileProvider,
-    RequestPath = requestPath
-});
-app.UseDirectoryBrowser(new DirectoryBrowserOptions
-{
-    FileProvider = physicalFileProvider,
-    RequestPath = requestPath
-});
+
+SetupStaticFileRoutes(app, builder);
+
 app.MapControllers();
 
 // app.MapFallbackToFile("index.html");
@@ -69,4 +58,35 @@ void SetupLocalDownloadDirectories(IWebHostEnvironment environment)
     {
         Directory.CreateDirectory(imagesPath);
     }
+}
+
+void SetupStaticFileRoutes(IApplicationBuilder applicationBuilder, WebApplicationBuilder webApplicationBuilder)
+{
+    applicationBuilder.UseStaticFiles();
+
+    var generatedImagesFileProvider = new PhysicalFileProvider(
+        Path.Combine(webApplicationBuilder.Environment.ContentRootPath, "raw_uploads", "output"));
+    const string requestPath = "/images";
+
+    applicationBuilder.UseStaticFiles(new StaticFileOptions
+    {
+        FileProvider = generatedImagesFileProvider,
+        RequestPath = requestPath
+    });
+
+    var originalFileProvider = new PhysicalFileProvider(
+        Path.Combine(webApplicationBuilder.Environment.ContentRootPath, "raw_uploads"));
+    const string originalFileRequestPath = "/original";
+
+    applicationBuilder.UseStaticFiles(new StaticFileOptions
+    {
+        FileProvider = originalFileProvider,
+        RequestPath = originalFileRequestPath
+    });
+
+    applicationBuilder.UseDirectoryBrowser(new DirectoryBrowserOptions
+    {
+        FileProvider = originalFileProvider,
+        RequestPath = originalFileRequestPath
+    });
 }

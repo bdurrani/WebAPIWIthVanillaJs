@@ -9,9 +9,13 @@ export class PageViewerV2 extends LitElement {
     @property({attribute: false})
     imageData: string;
 
+    @property()
+    src: string;
+
     constructor() {
         super();
         this.imageData = "";
+        this.src = "";
     }
 
     static styles = css`
@@ -21,9 +25,9 @@ export class PageViewerV2 extends LitElement {
   `;
 
     render() {
-        const imageTmpl = this.imageData ?
+        const imageTmpl = this.src ?
             html`
-          <img src=${this.imageData} alt="Visit the MDN site"> ` : ``;
+          <img src=${this.src} alt="Visit the MDN site"> ` : ``;
 
         return html`
       <div class="statement-page">

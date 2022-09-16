@@ -1,6 +1,7 @@
 import {helloWorld} from './test';
 import { register, PageViewerV2 } from './Components';
 import {StatementData} from "./types";
+import { v4 as uuidv4 } from 'uuid';
 
 async function formSubmitHandler(event: SubmitEvent, pageRoot: HTMLElement){
     const form = event.target as HTMLFormElement;
@@ -19,9 +20,11 @@ async function formSubmitHandler(event: SubmitEvent, pageRoot: HTMLElement){
     const statementData: StatementData = await response.json();
     console.log(statementData);
     let pageElements = [];
+    const statementIdPrefix = `statement-image-`;
     for (let page of statementData.pages){
         const item = document.createElement('page-viewer-v2') as PageViewerV2;
-        item.imageData = `images/${page.imageData}`;
+        item.src = `images/${page.imageData}`;
+        item.id = `${statementIdPrefix}${uuidv4()}`;
         pageElements.push(item);
     }
     pageRoot.replaceChildren(...pageElements);

@@ -1,0 +1,22 @@
+{
+  "widgets": [
+    {
+      "boundingBox": {
+        "height": 10,
+        "left": 0,
+        "top": 1,
+        "width": 1
+      },
+      "data": "hello"
+    },
+    {
+      "boundingBox": {
+        "height": 5,
+        "left": 0,
+        "top": 1,
+        "width": 1
+      },
+      "data": "hello"
+    }
+  ]
+}

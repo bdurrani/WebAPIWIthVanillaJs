@@ -21,8 +21,12 @@ public class ImageGenerator
         var extention = MimeGuesser.GuessExtension(pathToFile);
         if (!string.Equals(extention, "pdf", StringComparison.Ordinal))
         {
-           _logger.LogInformation("File is not a pdf. Nothing to do");
-           return Array.Empty<string>();
+            var newFileName = $"{Path.GetFileName(pathToFile)}.{extention}";
+            var originalPath = Path.GetDirectoryName(pathToFile);
+            var destFileName = Path.Combine(originalPath, "output", newFileName);
+            File.Copy(pathToFile, destFileName);
+           _logger.LogInformation("File is not a pdf. Copying file over");
+           return new[] { newFileName };
         }
 
         var folderForInput = Path.GetDirectoryName(pathToFile);
