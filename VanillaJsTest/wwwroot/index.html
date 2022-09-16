@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Vanilla Ooonana</title>
 </head>
+
 <body>
     <form method="post" id="upload" enctype="multipart/form-data" name="upload-form">
-        <label for="file">File to upload</label>
-        <input type="file" id="file" name="file">
+        <fieldset>
+            <legend>Image or PDF to process</legend>
+            <p>
+                <label for="file">File to upload</label>
+                <input type="file" id="file" name="file" accept="image/*, application/pdf">
+            </p>
+        </fieldset>
+        <fieldset>
+            <legend>Text Extraction Results. json file</legend>
+            <p>
+                <label for="file">Json file to upload</label>
+                <input type="file" id="file" name="file" accept="application/json">
+            </p>
+        </fieldset>
         <button>Upload</button>
     </form>
-    <!--    <img src="" class="my-image"  alt="uploaded image"/>-->
     <noscript>
         You need to enable JavaScript to run this app.
     </noscript>
