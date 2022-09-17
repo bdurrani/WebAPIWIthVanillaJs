@@ -15,6 +15,7 @@ async function formSubmitHandler(event: SubmitEvent, pageRoot: HTMLElement){
             method: "POST",
         });
     if (!response.ok) {
+        const errBody = await response.json();
         throw new Error(`HTTP error, status = ${response.status}`);
     }
     const statementData: StatementData = await response.json();
@@ -51,6 +52,35 @@ async function formSubmitHandler(event: SubmitEvent, pageRoot: HTMLElement){
     }
 
     helloWorld();
+
+    const jsonInputElement = document.getElementById('text-extraction') as HTMLInputElement
+
+    if(jsonInputElement){
+        jsonInputElement.addEventListener("change", (event)=>{
+            if(!event.target){
+               return;
+            }
+            // const file = event.target.files[0];
+            const target = event.target as HTMLInputElement;
+            if(!target || !(target.files)){
+                return null;
+            }
+            const file = target.files[0];
+            const reader = new FileReader();
+            reader.addEventListener('load', event => {
+                if(!event.target){
+                   return;
+                }
+                const data = event.target.result
+                if (typeof data === "string"){
+                    const jsonData = JSON.parse(data);
+                    console.log(jsonData);
+                }
+            });
+            // reader.readAsDataURL(file);
+            reader.readAsText(file);
+        });
+    }
     const form = document.forms.namedItem("upload-form");
 
     if(form === null){

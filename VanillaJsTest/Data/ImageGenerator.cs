@@ -19,7 +19,7 @@ public class ImageGenerator
     public async Task<string[]> Generate(string pathToFile)
     {
         var extention = MimeGuesser.GuessExtension(pathToFile);
-        if (!string.Equals(extention, "pdf", StringComparison.Ordinal))
+        if (!IsPdf(extention))
         {
             var newFileName = $"{Path.GetFileName(pathToFile)}.{extention}";
             var originalPath = Path.GetDirectoryName(pathToFile);
@@ -48,6 +48,8 @@ public class ImageGenerator
             .Select(file => Path.GetFileName(file))
             .ToArray();
     }
+
+    private static bool IsPdf(string extention) => string.Equals(extention, "pdf", StringComparison.Ordinal);
 
     private async Task GenerateImages(string pdfPath, string workingDirectory)
     {
