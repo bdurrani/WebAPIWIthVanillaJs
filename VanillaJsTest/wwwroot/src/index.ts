@@ -2,6 +2,9 @@ import {helloWorld} from './test';
 import { register, PageViewerV2 } from './Components';
 import {StatementData} from "./types";
 import { v4 as uuidv4 } from 'uuid';
+import { DataStore } from './services/dataStore';
+
+const dataStore = new DataStore();
 
 async function formSubmitHandler(event: SubmitEvent, pageRoot: HTMLElement){
     const form = event.target as HTMLFormElement;
@@ -16,7 +19,7 @@ async function formSubmitHandler(event: SubmitEvent, pageRoot: HTMLElement){
         });
     if (!response.ok) {
         const errBody = await response.json();
-        throw new Error(`HTTP error, status = ${response.status}`);
+        throw new Error(`HTTP error, status = ${response.status} body=${errBody}`);
     }
     const statementData: StatementData = await response.json();
     console.log(statementData);
@@ -56,34 +59,27 @@ async function formSubmitHandler(event: SubmitEvent, pageRoot: HTMLElement){
     const jsonInputElement = document.getElementById('text-extraction') as HTMLInputElement
 
     if(jsonInputElement){
-        jsonInputElement.addEventListener("change", (event)=>{
+        jsonInputElement.addEventListener("change", async (event)=>{
             if(!event.target){
                return;
             }
-            // const file = event.target.files[0];
+
             const target = event.target as HTMLInputElement;
             if(!target || !(target.files)){
                 return null;
             }
+
             const file = target.files[0];
-            const reader = new FileReader();
-            reader.addEventListener('load', event => {
-                if(!event.target){
-                   return;
-                }
-                const data = event.target.result
-                if (typeof data === "string"){
-                    const jsonData = JSON.parse(data);
-                    console.log(jsonData);
-                }
-            });
-            // reader.readAsDataURL(file);
-            reader.readAsText(file);
+            const fileData = await file.text();
+            const jsonData = JSON.parse(fileData);
+            console.log(jsonData);
+            dataStore.data = jsonData;
         });
     }
+
     const form = document.forms.namedItem("upload-form");
 
-    if(form === null){
+    if(!form){
         console.log("no form found");
         return;
     }
