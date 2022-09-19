@@ -7,11 +7,17 @@ import { DataStore } from './services/dataStore';
 const dataStore = new DataStore();
 
 async function formSubmitHandler(event: SubmitEvent, pageRoot: HTMLElement){
+    event.preventDefault();
     const form = event.target as HTMLFormElement;
     const formData = new FormData(form)
     formData.append("CustomField", "This is some extra data");
 
-    event.preventDefault();
+    const fileElement = document.getElementById("file") as HTMLInputElement;
+    if(fileElement && !fileElement.value){
+        alert('You must select a file!');
+        return;
+
+    }
     const response = await fetch("/files",
         {
             body: formData,
