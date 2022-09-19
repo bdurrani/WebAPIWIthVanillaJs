@@ -1,9 +1,9 @@
 import { css, html, LitElement, PropertyValues } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { query } from "lit/decorators/query.js";
-import { v4 as uuidv4 } from "uuid";
 
-const imageIdPrefix = `statement-image-`;
+const STATEMENT_IMAGE_ID = "statement-image";
+
 @customElement("page-viewer-v2")
 export class PageViewerV2 extends LitElement {
   @property({ attribute: false })
@@ -12,13 +12,16 @@ export class PageViewerV2 extends LitElement {
   @property()
   src: string;
 
-  @query("#statement-image")
-  private _first!: HTMLImageElement;
+  @query(`#${STATEMENT_IMAGE_ID}`)
+  private imageElement!: HTMLImageElement;
+
+  imgBounds: DOMRect | null;
 
   constructor() {
     super();
     this.imageData = "";
     this.src = "";
+    this.imgBounds = null;
   }
 
   static styles = css`
@@ -28,10 +31,9 @@ export class PageViewerV2 extends LitElement {
   `;
 
   render() {
-    const imageId = `${imageIdPrefix}${uuidv4()}`;
     const imageTmpl = this.src
       ? html`
-          <img src=${this.src} id="statement-image" alt="statement page" />
+          <img src=${this.src} id="${STATEMENT_IMAGE_ID}" alt="statement page" />
         `
       : ``;
 
@@ -41,8 +43,12 @@ export class PageViewerV2 extends LitElement {
   // https://stackoverflow.com/a/67499234/293611
   override async getUpdateComplete(): Promise<boolean> {
     const result = await super.getUpdateComplete();
+    if(!this.imageElement){
+      return result;
+    }
+
     const imageLoaded = new Promise((res) => {
-      this._first.onload = function () {
+      this.imageElement.onload = function () {
         res(null);
       };
     });
@@ -52,11 +58,7 @@ export class PageViewerV2 extends LitElement {
 
   async updated(changedProperties: PropertyValues) {
     await this.updateComplete;
-    const bounds = this._first.getBoundingClientRect();
-    console.log(JSON.stringify(bounds));
-    // test.onload = () => {
-    //   const onloadbounds = this._first.getBoundingClientRect();
-    //   console.log(JSON.stringify(onloadbounds));
-    // };
+    this.imgBounds = this.imageElement.getBoundingClientRect();
+    console.log(JSON.stringify(this.imgBounds));
   }
 }

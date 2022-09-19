@@ -66,7 +66,7 @@ async function formSubmitHandler(event: SubmitEvent, pageRoot: HTMLElement){
 
             const target = event.target as HTMLInputElement;
             if(!target || !(target.files)){
-                return null;
+                return;
             }
 
             const file = target.files[0];
@@ -74,6 +74,11 @@ async function formSubmitHandler(event: SubmitEvent, pageRoot: HTMLElement){
             const jsonData = JSON.parse(fileData);
             console.log(jsonData);
             dataStore.data = jsonData;
+            const fieldsetElement = document.getElementById('text-extraction-fieldset');
+            if(!fieldsetElement){
+                return;
+            }
+            fieldsetElement.classList.add('extraction-data-loaded');
         });
     }
 
